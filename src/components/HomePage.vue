@@ -17,7 +17,7 @@
       </v-col>
       <GetVaccinesCityData/>
       <v-col class="mb-4" sm="12" md="12" lg="12">
-        <h2 class="body-1 mb-3">Feito com: ❤️ por <a href="mailto:mattheus.afernandes@gmail.com">Matheus Fernandes</a></h2>
+        <h2 class="body-1 mb-3">Feito com: ❤️ por <a target="_blank" href="https://matheeusaf.github.io/">Matheus Fernandes</a></h2>
       </v-col>
     </v-row>
   </v-container>
