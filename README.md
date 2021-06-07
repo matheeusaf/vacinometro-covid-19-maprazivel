@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Vacinômetro para COVID-19 - Monte Aprazível</h1>
 <p align="center">
-  <strong>Dados da vacinação aplicadas no municiípio devido a pandemia de coronavírus (COVID-19) no mundo</strong>
+  <strong>Dados da vacinação aplicadas no município devido a pandemia de coronavírus (COVID-19) no mundo</strong>
 </p>
 
 ## [Site/PWA](https://vacinometro-covid-19-maprazivel.pages.dev/)
