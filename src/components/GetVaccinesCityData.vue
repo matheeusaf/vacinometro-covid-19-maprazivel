@@ -30,23 +30,23 @@
     </v-col>
     <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
       <v-sheet class="pa-4" color="white" elevation="3">
-        <vc-donut :sections="chartporcDosesAplicadas" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
-          <h1 style="margin: 0;"><v-progress-circular id="pdaloader" indeterminate color="red lighten-2"></v-progress-circular>{{porcDosesAplicadas}}%</h1>doses aplicadas
-        </vc-donut>
-      </v-sheet>
-    </v-col>
-    <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
-      <v-sheet class="pa-4" color="white" elevation="3">
         <vc-donut :sections="chartporcPopulacaoVacinadaD1" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
           <h1 style="margin: 0;"><v-progress-circular id="ppvloader" indeterminate color="green lighten-2"></v-progress-circular>{{porcPopulacaoVacinada}}%</h1>população vacinada
         </vc-donut>
       </v-sheet>
     </v-col>
-    <v-col class="mb-5" cols="12" xs="12" sm="12" md="12" lg="12">
+    <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
       <v-sheet class="pa-4" color="white" elevation="3">
         <vc-donut :sections="chartporcPopulacaoVacinadaD2" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
           <h1 style="margin: 0;"><v-progress-circular id="ppv2loader" indeterminate color="blue lighten-2"></v-progress-circular>{{porcPopulacaoVacinadaD2}}%</h1>população vacinada
         </vc-donut>
+      </v-sheet>
+    </v-col>
+    <v-col class="mb-5" cols="12" xs="12" sm="12" md="12" lg="12">
+      <v-sheet class="pa-4" color="white" elevation="3">
+        <vc-donut :sections="chartporcDosesAplicadas" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
+          <h1 style="margin: 0;"><v-progress-circular id="pdaloader" indeterminate color="red lighten-2"></v-progress-circular>{{porcDosesAplicadas}}%</h1>doses aplicadas
+        </vc-donut>        
       </v-sheet>
     </v-col>
     <v-col class="mb-4" sm="12" md="12" lg="12">
@@ -61,7 +61,7 @@
 
   const numporcPopulacaoVacinadaD1 = parseFloat(localStorage.getItem("ppv"));
   const numporcPopulacaoVacinadaD2 = parseFloat(localStorage.getItem("ppv2"));
-  const numporcDosesAplicadas = parseFloat(localStorage.getItem("pda"));
+  const numporcDosesAplicadas = parseFloat(localStorage.getItem("pdaM"));
 
   export default {
     name: "GetVaccinesCityData",
@@ -73,6 +73,7 @@
         dosesDist: null,
         porcDosesAplicadas: null,
         porcPopulacaoVacinada: null,
+        porcPopulacaoVacinadaD2: null,
         chartporcDosesAplicadas: [{
           label: 'Porcentagem de Doses Aplicadas sobre as Doses Distribuídas',
           value: numporcDosesAplicadas,
@@ -154,10 +155,9 @@
           // setTimeout to wait dosesTotais be loaded
           setTimeout(() => {
             this.porcDosesAplicadas = (this.dosesTotais / this.dosesDist) * 100;
-            console.log(this.porcDosesAplicadas);
             this.porcDosesAplicadas = parseFloat(this.porcDosesAplicadas.toFixed(2));
             document.querySelector("#pdaloader").style.display = "none";
-            localStorage.setItem("pda", this.porcDosesAplicadas);
+            localStorage.setItem("pdaM", this.porcDosesAplicadas);
           }, 1000);
         })
         .catch(error => {
