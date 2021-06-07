@@ -37,8 +37,15 @@
     </v-col>
     <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
       <v-sheet class="pa-4" color="white" elevation="3">
-        <vc-donut :sections="chartporcPopulacaoVacinada" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
+        <vc-donut :sections="chartporcPopulacaoVacinadaD1" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
           <h1 style="margin: 0;"><v-progress-circular id="ppvloader" indeterminate color="green lighten-2"></v-progress-circular>{{porcPopulacaoVacinada}}%</h1>população vacinada
+        </vc-donut>
+      </v-sheet>
+    </v-col>
+    <v-col class="mb-5" cols="12" xs="12" sm="12" md="12" lg="12">
+      <v-sheet class="pa-4" color="white" elevation="3">
+        <vc-donut :sections="chartporcPopulacaoVacinadaD2" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
+          <h1 style="margin: 0;"><v-progress-circular id="ppv2loader" indeterminate color="blue lighten-2"></v-progress-circular>{{porcPopulacaoVacinadaD2}}%</h1>população vacinada
         </vc-donut>
       </v-sheet>
     </v-col>
@@ -52,7 +59,8 @@
   import CSVJSON from 'csvjson-csv2json';
   import 'vue-css-donut-chart/dist/vcdonut.css';
 
-  const numporcPopulacaoVacinada = parseFloat(localStorage.getItem("ppv"));
+  const numporcPopulacaoVacinadaD1 = parseFloat(localStorage.getItem("ppv"));
+  const numporcPopulacaoVacinadaD2 = parseFloat(localStorage.getItem("ppv2"));
   const numporcDosesAplicadas = parseFloat(localStorage.getItem("pda"));
 
   export default {
@@ -70,10 +78,15 @@
           value: numporcDosesAplicadas,
           color: '#e57373'
         }],
-        chartporcPopulacaoVacinada: [{
-          label: 'Porcentagem da População vacinada com a primeria dose',
-          value: numporcPopulacaoVacinada,
+        chartporcPopulacaoVacinadaD1: [{
+          label: 'Porcentagem da População vacinada com a Primeria Dose',
+          value: numporcPopulacaoVacinadaD1,
           color: '#81C784'
+        }],
+        chartporcPopulacaoVacinadaD2: [{
+          label: 'Porcentagem da População vacinada com a Segunda Dose',
+          value: numporcPopulacaoVacinadaD2,
+          color: '#64B5F6'
         }],
         errorMessage: null
       };
@@ -114,6 +127,10 @@
           this.porcPopulacaoVacinada = parseFloat(this.porcPopulacaoVacinada.toFixed(2));
           document.querySelector("#ppvloader").style.display = "none";
           localStorage.setItem("ppv", this.porcPopulacaoVacinada);
+          this.porcPopulacaoVacinadaD2 = (this.segundaDose / 25373) * 100;
+          this.porcPopulacaoVacinadaD2 = parseFloat(this.porcPopulacaoVacinadaD2.toFixed(2));
+          document.querySelector("#ppv2loader").style.display = "none";
+          localStorage.setItem("ppv2", this.porcPopulacaoVacinadaD2);
         })
         .catch(error => {
           this.errorMessage = error;
@@ -132,12 +149,16 @@
             if (citydatadistjson[i].Municipio === 'MONTE APRAZÍVEL') {
               this.dosesDist = citydatadistjson[i]['Qtd-Doses-Distribuidas'];
               document.querySelector("#dosesDistLoader").style.display = "none";
-              this.porcDosesAplicadas = (this.dosesTotais / this.dosesDist) * 100;
-              this.porcDosesAplicadas = parseFloat(this.porcDosesAplicadas.toFixed(2));
-              document.querySelector("#pdaloader").style.display = "none";
             }
           }
-          localStorage.setItem("pda", this.porcDosesAplicadas);
+          // setTimeout to wait dosesTotais be loaded
+          setTimeout(() => {
+            this.porcDosesAplicadas = (this.dosesTotais / this.dosesDist) * 100;
+            console.log(this.porcDosesAplicadas);
+            this.porcDosesAplicadas = parseFloat(this.porcDosesAplicadas.toFixed(2));
+            document.querySelector("#pdaloader").style.display = "none";
+            localStorage.setItem("pda", this.porcDosesAplicadas);
+          }, 1000);
         })
         .catch(error => {
           this.errorMessage = error;
