@@ -1,52 +1,53 @@
 <template>
   <v-row class="text-center">
     <v-col class="mb-5" cols="12" xs="6" sm="6" md="3" lg="3">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <h5 class="headline mb-2">Doses Distribuídas</h5>
         <v-progress-circular id="dosesDistLoader" indeterminate color="red lighten-2"></v-progress-circular>
         <h4 class="display-1">{{dosesDist}}</h4>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="6" sm="6" md="3" lg="3">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <h5 class="headline mb-2">Doses Aplicadas</h5>
         <v-progress-circular id="dosesTotaisLoader" indeterminate color="red lighten-2"></v-progress-circular>
         <h4 class="display-1">{{dosesTotais}}</h4>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="6" sm="6" md="3" lg="3">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <h5 class="headline mb-2">Primeira Dose</h5>
         <v-progress-circular id="primeiraDoseLoader" indeterminate color="red lighten-2"></v-progress-circular>
         <h4 class="display-1">{{primeiraDose}}</h4>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="6" sm="6" md="3" lg="3">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <h5 class="headline mb-2">Segunda Dose</h5>
         <v-progress-circular id="segundaDoseLoader" indeterminate color="red lighten-2"></v-progress-circular>
         <h4 class="display-1">{{segundaDose}}</h4>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <vc-donut :sections="chartporcPopulacaoVacinadaD1" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
-          <h1 style="margin: 0;"><v-progress-circular id="ppvloader" indeterminate color="green lighten-2"></v-progress-circular>{{porcPopulacaoVacinada}}%</h1>população vacinada
+          <h1 style="margin: 0;">
+            <v-progress-circular id="ppvloader" indeterminate color="green lighten-2"></v-progress-circular>{{porcPopulacaoVacinada}}%</h1>população vacinada
         </vc-donut>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="12" sm="12" md="6" lg="6">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <vc-donut :sections="chartporcPopulacaoVacinadaD2" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
           <h1 style="margin: 0;"><v-progress-circular id="ppv2loader" indeterminate color="blue lighten-2"></v-progress-circular>{{porcPopulacaoVacinadaD2}}%</h1>população vacinada
         </vc-donut>
       </v-sheet>
     </v-col>
     <v-col class="mb-5" cols="12" xs="12" sm="12" md="12" lg="12">
-      <v-sheet class="pa-4" color="white" elevation="3">
+      <v-sheet class="pa-4" elevation="3">
         <vc-donut :sections="chartporcDosesAplicadas" has-legend legend-placement="bottom" :total="100" :start-angle="0" :auto-adjust-text-size="true">
           <h1 style="margin: 0;"><v-progress-circular id="pdaloader" indeterminate color="red lighten-2"></v-progress-circular>{{porcDosesAplicadas}}%</h1>doses aplicadas
-        </vc-donut>        
+        </vc-donut>       
       </v-sheet>
     </v-col>
     <v-col class="mb-4" sm="12" md="12" lg="12">
@@ -178,10 +179,14 @@
     } else {
       if (dia.length === 2) {
         dia = dia;
+        dia = parseFloat(dia);
+        dia = dia - 1;
       }
-      dia = parseFloat(dia);
-      dia = dia - 1;
-      dia = "0" + dia.toString();
+      else {
+        dia = parseFloat(dia);
+        dia = dia - 1;
+        dia = "0" + dia.toString();
+      }
     }
     return ano + "" + mes + "" + dia;
   }
