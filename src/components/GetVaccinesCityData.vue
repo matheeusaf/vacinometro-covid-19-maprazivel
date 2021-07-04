@@ -58,7 +58,6 @@
 
 <script>
   import CSVJSON from 'csvjson-csv2json';
-  import 'vue-css-donut-chart/dist/vcdonut.css';
 
   const numporcPopulacaoVacinadaD1 = parseFloat(localStorage.getItem("ppv"));
   const numporcPopulacaoVacinadaD2 = parseFloat(localStorage.getItem("ppv2"));
@@ -75,6 +74,24 @@
         porcDosesAplicadas: null,
         porcPopulacaoVacinada: null,
         porcPopulacaoVacinadaD2: null,
+        series: [44, 55, 41, 17, 15],
+          chartOptions: {
+            chart: {
+              type: 'donut',
+            },
+            responsive: [{
+              breakpoint: 200,
+              options: {
+                chart: {
+                  width: 200,
+                  height: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }]
+            },
         chartporcDosesAplicadas: [{
           label: 'Porcentagem de Doses Aplicadas sobre as Doses Distribuídas',
           value: numporcDosesAplicadas,
@@ -177,16 +194,9 @@
       // Get the actual day
       dia = dia;
     } else {
-      if (dia.length === 2) {
-        dia = dia;
-        dia = parseFloat(dia);
-        dia = dia - 1;
-      }
-      else {
-        dia = parseFloat(dia);
-        dia = dia - 1;
-        dia = "0" + dia.toString();
-      }
+      dia = parseFloat(dia);
+      dia = dia - 1;
+      dia = "0" + dia.toString();
     }
     return ano + "" + mes + "" + dia;
   }
