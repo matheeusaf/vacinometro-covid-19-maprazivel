@@ -194,9 +194,16 @@
       // Get the actual day
       dia = dia;
     } else {
-      dia = parseFloat(dia);
-      dia = dia - 1;
-      dia = "0" + dia.toString();
+      var diad = dia.toString()[0];
+      if (diad === "1" || diad === "2" || diad === "3"){
+        dia = parseFloat(dia);
+        dia = dia - 1;
+      }
+      else {
+        dia = parseFloat(dia);
+        dia = dia - 1;
+        dia = "0" + dia.toString();
+      }
     }
     return ano + "" + mes + "" + dia;
   }
