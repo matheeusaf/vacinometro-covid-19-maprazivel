@@ -115,6 +115,7 @@
       var data = new Date();
       var myHeaders = new Headers();
       myHeaders.append("origin", "same-origin");
+      myHeaders.append("x-cors-grida-api-key", "89566613-cb0b-423b-a6a2-46695353a8c6");
       var requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -157,9 +158,7 @@
         });
 
       // GET request using fetch with error handling
-      fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/" + data.getFullYear() + "/" +
-          (data.getMonth() + 1).toString().padStart(2, '0') + "/" + dataAtualFormatada() +
-          "_painel_distribuicao_doses.csv", requestOptions)
+      fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/2021/10/20211016_painel_distribuicao_doses.csv", requestOptions)
         .then(async response => {
           const data = await response.text();
 
