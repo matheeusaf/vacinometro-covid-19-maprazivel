@@ -158,7 +158,9 @@
         });
 
       // GET request using fetch with error handling
-      fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/2021/10/20211016_painel_distribuicao_doses.csv", requestOptions)
+      fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/" + data.getFullYear() + "/" +
+          (data.getMonth() + 1).toString().padStart(2, '0') + "/" + dataAtualFormatada() +
+          "_painel_distribuicao_doses.csv", requestOptions)
         .then(async response => {
           const data = await response.text();
 
