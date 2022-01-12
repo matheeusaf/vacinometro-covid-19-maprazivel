@@ -209,7 +209,7 @@
       dia = data.getDate().toString().padStart(2, '0'),
       mes = (data.getMonth() + 1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
       ano = data.getFullYear();
-    if (dia && data.getHours() > 20) {
+    if (dia && data.getHours() > 19) {
       // Get the actual day
       dia = dia;
     } else {
