@@ -152,7 +152,7 @@
 
       // GET request using fetch with error handling
       fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/" + data.getFullYear() + "/" +
-          (data.getMonth() + 1).toString().padStart(2, '0') + "/" + dataAtualFormatada() + "_vacinometro.csv",
+          (data.getMonth() + 1).toString().padStart(2, '0') + "/" + dataAtualFormatada() + "_vacinometro.csv.csv",
           requestOptions)
         .then(async response => {
           const data = await response.text();
