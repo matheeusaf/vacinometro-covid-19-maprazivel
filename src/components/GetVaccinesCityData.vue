@@ -139,38 +139,29 @@
       };
     },
     async created() {
-      // requestOptions to sent a request to cors.bridged.cc
-      var data = new Date();
-      var myHeaders = new Headers();
-      myHeaders.append("origin", "same-origin");
-      myHeaders.append("x-cors-grida-api-key", process.env.VUE_APP_CORS_KEY);
       var requestOptions = {
         method: 'GET',
-        headers: myHeaders,
         redirect: 'follow'
       };
 
       // GET request using fetch with error handling
-      fetch("https://cors.bridged.cc/https://www.saopaulo.sp.gov.br/wp-content/uploads/" + data.getFullYear() + "/" +
-          (data.getMonth() + 1).toString().padStart(2, '0') + "/" + dataAtualFormatada() + "_vacinometro.csv",
+      fetch("https://covid19-sp-api.vercel.app/api/vacinometro",
           requestOptions)
         .then(async response => {
-          const data = await response.text();
-
-          const citydatajson = CSVJSON.csv2json(data);
-          for (var i = 0; i < citydatajson.length; i++) {
-            if (citydatajson[i].Município === 'MONTE APRAZÍVEL') {
-              if (citydatajson[i].Dose === 'UNICA') {
-                this.doseUnica = citydatajson[i]['Total Doses Aplicadas'];
+          const data = await response.json();
+          for (var i = 0; i < data.data.length; i++) {
+            if (data.data[i].Município === 'MONTE APRAZÍVEL') {
+              if (data.data[i].Dose === 'UNICA') {
+                this.doseUnica = data.data[i]['Total Doses Aplicadas'];
                 document.querySelector("#doseUnicaLoader").style.display = "none";
-              } else if (citydatajson[i].Dose === '1° DOSE') {
-                this.primeiraDose = citydatajson[i]['Total Doses Aplicadas'];
+              } else if (data.data[i].Dose === '1° DOSE') {
+                this.primeiraDose = data.data[i]['Total Doses Aplicadas'];
                 document.querySelector("#primeiraDoseLoader").style.display = "none";
-              } else if (citydatajson[i].Dose === '2° DOSE') {
-                this.segundaDose = citydatajson[i]['Total Doses Aplicadas'];
+              } else if (data.data[i].Dose === '2° DOSE') {
+                this.segundaDose = data.data[i]['Total Doses Aplicadas'];
                 document.querySelector("#segundaDoseLoader").style.display = "none";
               } else {
-                this.terceiraDose = citydatajson[i]['Total Doses Aplicadas'];
+                this.terceiraDose = data.data[i]['Total Doses Aplicadas'];
                 document.querySelector("#terceiraDoseLoader").style.display = "none";
               }
             }
@@ -204,25 +195,4 @@
     }
   };
 
-  function dataAtualFormatada() {
-    var data = new Date(),
-      dia = data.getDate().toString().padStart(2, '0'),
-      mes = (data.getMonth() + 1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
-      ano = data.getFullYear();
-    if (dia && data.getHours() > 19) {
-      // Get the actual day
-      dia = dia;
-    } else {
-      var diad = dia.toString()[0];
-      if (diad === "1" || diad === "2" || diad === "3") {
-        dia = parseFloat(dia);
-        dia = dia - 1;
-      } else {
-        dia = parseFloat(dia);
-        dia = dia - 1;
-        dia = "0" + dia.toString();
-      }
-    }
-    return ano + "" + mes + "" + dia;
-  }
 </script>
