@@ -159,18 +159,18 @@
 
           const citydatajson = CSVJSON.csv2json(data);
           for (var i = 0; i < citydatajson.length; i++) {
-            if (citydatajson[i].Município === 'MONTE APRAZÍVEL') {
-              if (citydatajson[i].Dose === 'UNICA') {
-                this.doseUnica = citydatajson[i]['Total Doses Aplicadas'];
+            if (citydatajson[i].MUNICÍPIO === 'MONTE APRAZÍVEL') {
+              if (citydatajson[i].DOSES === 'ÚNICA') {
+                this.doseUnica = citydatajson[i]['QTDE'];
                 document.querySelector("#doseUnicaLoader").style.display = "none";
-              } else if (citydatajson[i].Dose === '1° DOSE') {
-                this.primeiraDose = citydatajson[i]['Total Doses Aplicadas'];
+              } else if (citydatajson[i].DOSES === '1º DOSE') {
+                this.primeiraDose = citydatajson[i]['QTDE'];
                 document.querySelector("#primeiraDoseLoader").style.display = "none";
-              } else if (citydatajson[i].Dose === '2° DOSE') {
-                this.segundaDose = citydatajson[i]['Total Doses Aplicadas'];
+              } else if (citydatajson[i].DOSES === '2º DOSE') {
+                this.segundaDose = citydatajson[i]['QTDE'];
                 document.querySelector("#segundaDoseLoader").style.display = "none";
-              } else {
-                this.terceiraDose = citydatajson[i]['Total Doses Aplicadas'];
+              } else if (citydatajson[i].DOSES === '1º DOSE ADICIONAL') {
+                this.terceiraDose = citydatajson[i]['QTDE'];
                 document.querySelector("#terceiraDoseLoader").style.display = "none";
               }
             }
